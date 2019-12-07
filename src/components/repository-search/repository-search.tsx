@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import throttle from 'lodash.throttle';
 
+import RepositorySearchComponent from './repository-search-component';
 import apiController from '../../controllers/api-controller';
 
 import { SearchRepoResponse, ErrorResponse } from '../../model/interfaces';
-
 import { useGetSearchRepo } from '../../model/hooks';
-
-import style from './repository-search.module.css';
 
 
 interface Props {
@@ -28,10 +26,8 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
         }, 1000, { leading: false }),
         []);
 
-    const [search, setSearch] = useState<string>(searchedRepo);
-    const onChange = useCallback((e) => {
-        setSearch(e.target.value);
-        updateLocation(e.target.value);
+    const onChange = useCallback((value: string) => {
+        updateLocation(value);
     }, [updateLocation]);
 
     const searchRepo = useCallback((searchValue: string, page?: number) => {
@@ -53,9 +49,7 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
         searchRepo(searchedRepo, page);
     }, [searchRepo, searchedRepo, page]);
     return (
-        <div className={ style.searchRoot }>
-            Search: <input placeholder="Enter repository name" value={search} onChange={ onChange }/>
-        </div>
+        <RepositorySearchComponent onChange={ onChange } searchedRepo={ searchedRepo }/>
     )
 };
 
