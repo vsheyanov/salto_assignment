@@ -1,3 +1,7 @@
 .searchRoot {
     margin-bottom: 10px;
 }
+
+.searchRoot input {
+    width: 200px;
+}

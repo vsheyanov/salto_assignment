@@ -53,4 +53,4 @@ const RepositoryDetailsComponent: React.FC<Props> = ({ fullName, repo }) => {
     );
 };
 
-export default RepositoryDetailsComponent;
+export default React.memo(RepositoryDetailsComponent);

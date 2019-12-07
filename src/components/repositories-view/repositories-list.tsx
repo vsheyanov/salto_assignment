@@ -6,7 +6,7 @@ import styles from './repositories-list.module.css';
 import RepositoryLine from "./repository-line";
 
 interface Props {
-    items: Array<RepositorySearchItem>
+    items: Array<RepositorySearchItem>;
 }
 
 

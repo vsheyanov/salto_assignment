@@ -40,11 +40,7 @@ const RepositoryComponent: React.FC = () => {
     return (
         <>
             <RepositoryDetailsComponent fullName={ fullName } repo={ repository as RepositoryObject }/>
-            {
-                <div>
-                    <Markdown source={ readme } skipHtml={ false } escapeHtml={ false }/>
-                </div>
-            }
+            <Markdown source={ readme } skipHtml={ false } escapeHtml={ false }/>
         </>
     );
 };

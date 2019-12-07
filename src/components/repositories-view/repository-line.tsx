@@ -9,7 +9,7 @@ interface Props {
 
 const RepositoryLine: React.FC<Props> = ({ item }) => {
     return (
-        <tr key={ item.id }>
+        <tr>
             <td>
                 <Link to={`repo/${item.full_name}`}>{item.full_name}</Link>
             </td>

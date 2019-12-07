@@ -12,7 +12,7 @@ import style from './repository-search.module.css';
 
 
 interface Props {
-    onItemsReceived: (response: SearchRepoResponse) => void;
+    onItemsReceived: (response: SearchRepoResponse | null) => void;
 }
 
 const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
@@ -20,10 +20,12 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
 
     const history = useHistory();
 
+    // we would like to update history string ones per second
+    // in this case user will see results while typing
     const updateLocation = useCallback(
         throttle((repoStr: string) => {
             history.push(`/?repo=${repoStr}`)
-        }, 1000),
+        }, 1000, { leading: false }),
         []);
 
     const [search, setSearch] = useState<string>(searchedRepo);
@@ -33,7 +35,10 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
     }, [updateLocation]);
 
     const searchRepo = useCallback((searchValue: string, page?: number) => {
-        if (searchValue.trim().length < 3) { return; }
+        if (searchValue.trim().length < 1) {
+            onItemsReceived(null);
+            return;
+        }
 
         apiController.searchRepos(searchValue, page)
             .then((data: SearchRepoResponse | ErrorResponse) => {
@@ -44,19 +49,12 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
             })
     }, [onItemsReceived]);
 
-    const onKeyDown = useCallback((e) => {
-        if (e.key === 'Enter') {
-            updateLocation(search);
-        }
-    }, [updateLocation, search]);
-
-
     useEffect(() => {
         searchRepo(searchedRepo, page);
     }, [searchRepo, searchedRepo, page]);
     return (
         <div className={ style.searchRoot }>
-            Search: <input value={search} onChange={ onChange } onKeyDown={ onKeyDown }/>
+            Search: <input placeholder="Enter repository name" value={search} onChange={ onChange }/>
         </div>
     )
 };

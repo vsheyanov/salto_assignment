@@ -10,22 +10,20 @@ import RepositoriesList from "./repositories-list";
 const RepositoriesView: React.FC = () => {
     const [searchResponse, setSearchResponse] = useState<SearchRepoResponse | null>(null);
 
-    const onItemsReceived = useCallback((response: SearchRepoResponse) => {
+    const onItemsReceived = useCallback((response: SearchRepoResponse | null) => {
         setSearchResponse(response);
     }, []);
 
     return (
-        <div className="App">
+        <div>
             <RepositorySearch onItemsReceived={ onItemsReceived }/>
-
             {
                 !searchResponse ? undefined : (
-                    <RepositoriesList items={ searchResponse.items }/>
+                    <>
+                        <RepositoriesList items={ searchResponse.items }/>
+                        <Paginator pagination={ searchResponse.pagination }/>
+                    </>
                 )
-            }
-            {
-                searchResponse
-                && <Paginator pagination={ searchResponse.pagination }/>
             }
         </div>
     );
