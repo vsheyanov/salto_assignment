@@ -25,6 +25,15 @@ export interface RepositoryObject {
     open_issues_count: number;
 }
 
+export interface ReadmeObject {
+    download_url: string;
+}
+
 export interface ErrorResponse {
     message: string;
+}
+
+export interface Action {
+    type: string;
+    payload: any;
 }

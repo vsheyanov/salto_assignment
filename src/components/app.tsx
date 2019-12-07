@@ -1,9 +1,6 @@
-import { useSelector } from 'react-redux';
-import React, { useEffect, useState, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 
-
-import logo from '../logo.svg';
 import '../App.css';
 
 import { RepositorySearchItem } from '../model/interfaces';
@@ -18,11 +15,8 @@ const App: React.FC = () => {
         setRepositoties(repos);
     }, []);
 
-    console.log();
-
     return (
         <div className="App">
-
             <RepositorySearch onItemsReceived={ onItemsReceived }/>
 
             <table>

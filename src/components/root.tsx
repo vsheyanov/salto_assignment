@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import {Provider} from "react-redux";
-import App from './App';
+import App from './app';
 import Repository from './repository';
+import MainView from './main-view';
 
 interface Props {
     store: any;
@@ -11,9 +12,12 @@ interface Props {
 const Root: React.FC<Props> = ({ store }) => (
     <Provider store={ store }>
         <Router>
-            <Route exact path="/" component={ App }/>
-            <Route path="/repo/:owner/:repo" component={ Repository }/>
-
+            <MainView>
+                <Switch>
+                    <Route exact path="/" component={ App }/>
+                    <Route path="/repo/:owner/:repo" component={ Repository }/>
+                </Switch>
+            </MainView>
         </Router>
     </Provider>
 );

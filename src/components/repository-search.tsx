@@ -14,7 +14,7 @@ interface Props {
 
 const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
     const locationSearch = queryString.parse(useLocation().search);
-    const searchedRepo = String(locationSearch.repo) || '';
+    const searchedRepo = String(locationSearch.repo || '');
 
     const history = useHistory();
 

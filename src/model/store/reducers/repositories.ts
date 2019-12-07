@@ -1,9 +1,6 @@
-const initialState: Array<string> = [];
+import { Action } from '../../interfaces';
 
-interface Action {
-    type: string;
-    payload: any;
-}
+const initialState: Array<string> = [];
 
 export default function (state = initialState, action: Action ) {
     switch (action.type) {
