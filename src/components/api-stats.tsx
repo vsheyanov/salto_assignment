@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import './api-stats.css';
+
 
 const ApiStatsComponent: React.FC = () => {
     const stats = useSelector((s: any) => s.apiRequest);

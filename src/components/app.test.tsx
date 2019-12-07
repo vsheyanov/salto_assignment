@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import RepositoriesList from './repositories-list';
+import RepositoriesList from './repositories-view/repositories-list';
 
 test('renders learn react link', () => {
   const { getByText } = render(<RepositoriesList />);

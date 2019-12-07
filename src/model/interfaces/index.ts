@@ -1,5 +1,12 @@
+export interface Pagination {
+    first?: string;
+    last?: string;
+    next?: string;
+    prev?: string;
+}
 
 export interface SearchRepoResponse {
+    pagination: Pagination;
     incomplete_results: boolean;
     items: Array<RepositorySearchItem>;
     total_count: number;

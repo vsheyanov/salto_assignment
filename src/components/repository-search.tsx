@@ -1,20 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLocation, useHistory} from "react-router-dom";
-import queryString from 'query-string'
+import { useHistory } from 'react-router-dom';
 import throttle from 'lodash.throttle';
 
 import apiController from '../controllers/api-controller';
 
-import { RepositorySearchItem, SearchRepoResponse, ErrorResponse } from '../model/interfaces';
+import { SearchRepoResponse, ErrorResponse } from '../model/interfaces';
+
+import { useGetSearchRepo } from '../model/hooks';
+
+import './repository-search.css';
 
 
 interface Props {
-    onItemsReceived: (items: Array<RepositorySearchItem>) => void;
+    onItemsReceived: (response: SearchRepoResponse) => void;
 }
 
 const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
-    const locationSearch = queryString.parse(useLocation().search);
-    const searchedRepo = String(locationSearch.repo || '');
+    const { searchedRepo, page } = useGetSearchRepo();
 
     const history = useHistory();
 
@@ -30,15 +32,15 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
         updateLocation(e.target.value);
     }, [updateLocation]);
 
-    const searchRepo = useCallback((searchValue: string) => {
+    const searchRepo = useCallback((searchValue: string, page?: number) => {
         if (searchValue.trim().length < 3) { return; }
 
-        apiController.searchRepos(searchValue)
+        apiController.searchRepos(searchValue, page)
             .then((data: SearchRepoResponse | ErrorResponse) => {
                 if ((data as ErrorResponse).message) {
                     return;
                 }
-                onItemsReceived((data as SearchRepoResponse).items);
+                onItemsReceived((data as SearchRepoResponse));
             })
     }, [onItemsReceived]);
 
@@ -50,9 +52,13 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
 
 
     useEffect(() => {
-        searchRepo(searchedRepo);
-    }, [searchRepo, searchedRepo]);
-    return <input value={search} onChange={ onChange } onKeyDown={ onKeyDown }/>
+        searchRepo(searchedRepo, page);
+    }, [searchRepo, searchedRepo, page]);
+    return (
+        <div className="search-root">
+            Search: <input value={search} onChange={ onChange } onKeyDown={ onKeyDown }/>
+        </div>
+    )
 };
 
 export default RepositorySearch;

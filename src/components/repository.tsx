@@ -44,7 +44,7 @@ const RepositoryComponent: React.FC = () => {
             }
             {
                 <div>
-                    <Markdown source={ readme }/>
+                    <Markdown source={ readme } skipHtml={ false } escapeHtml={ false }/>
                 </div>
             }
         </>
