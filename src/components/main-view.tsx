@@ -1,5 +1,5 @@
 import React from 'react';
-import ApiStatsComponent from './api-stats';
+import ApiStatsComponent from './api-stats/api-stats';
 
 const MainView: React.FC = ({ children }) => {
     return (

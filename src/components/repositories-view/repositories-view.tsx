@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react';
 
 import { SearchRepoResponse } from '../../model/interfaces';
 
-import RepositorySearch from '../repository-search'
-import Paginator from '../paginator';
+import RepositorySearch from '../repository-search/repository-search'
+import Paginator from '../paginator/paginator';
 import RepositoriesList from "./repositories-list";
 
 

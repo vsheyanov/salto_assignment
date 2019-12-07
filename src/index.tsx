@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import store from './model/store/store';
 import * as serviceWorker from './serviceWorker';
 import Root from './components/root';
+
+import './index.css';
+
 
 ReactDOM.render(<Root store={ store }/>, document.getElementById('root'));
 

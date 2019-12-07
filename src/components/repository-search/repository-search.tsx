@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import throttle from 'lodash.throttle';
 
-import apiController from '../controllers/api-controller';
+import apiController from '../../controllers/api-controller';
 
-import { SearchRepoResponse, ErrorResponse } from '../model/interfaces';
+import { SearchRepoResponse, ErrorResponse } from '../../model/interfaces';
 
-import { useGetSearchRepo } from '../model/hooks';
+import { useGetSearchRepo } from '../../model/hooks';
 
-import './repository-search.css';
+import style from './repository-search.module.css';
 
 
 interface Props {
@@ -55,7 +55,7 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
         searchRepo(searchedRepo, page);
     }, [searchRepo, searchedRepo, page]);
     return (
-        <div className="search-root">
+        <div className={ style.searchRoot }>
             Search: <input value={search} onChange={ onChange } onKeyDown={ onKeyDown }/>
         </div>
     )

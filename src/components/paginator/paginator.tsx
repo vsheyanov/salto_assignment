@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './paginator.css';
+import style from './paginator.module.css';
 
-import { Pagination } from '../model/interfaces';
-import {useGetSearchRepo} from "../model/hooks";
+import { Pagination } from '../../model/interfaces';
+import { useGetSearchRepo } from '../../model/hooks';
 
 interface Props {
     pagination: Pagination;
@@ -13,7 +13,7 @@ interface Props {
 const PaginatorComponent: React.FC<Props> = ({ pagination }) => {
     const { searchedRepo } = useGetSearchRepo();
     return (
-        <div className="paginator-root">
+        <div className={ style.paginatorRoot }>
             { pagination.first && <Link to={`/?repo=${searchedRepo}&page=${pagination.first}`}>{`<<`} first </Link> }
             { pagination.prev && <Link to={`/?repo=${searchedRepo}&page=${pagination.prev}`}>{`<`} prev </Link> }
             { pagination.next && <Link to={`/?repo=${searchedRepo}&page=${pagination.next}`}> next {`>`}</Link> }
