@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation, useHistory} from "react-router-dom";
 import queryString from 'query-string'
 import throttle from 'lodash.throttle';
@@ -28,7 +28,7 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
     const onChange = useCallback((e) => {
         setSearch(e.target.value);
         updateLocation(e.target.value);
-    }, []);
+    }, [updateLocation]);
 
     const searchRepo = useCallback((searchValue: string) => {
         if (searchValue.trim().length < 3) { return; }
@@ -40,18 +40,18 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
                 }
                 onItemsReceived((data as SearchRepoResponse).items);
             })
-    }, []);
+    }, [onItemsReceived]);
 
     const onKeyDown = useCallback((e) => {
         if (e.key === 'Enter') {
             updateLocation(search);
         }
-    }, [search]);
+    }, [updateLocation, search]);
 
 
     useEffect(() => {
         searchRepo(searchedRepo);
-    }, [searchedRepo]);
+    }, [searchRepo, searchedRepo]);
     return <input value={search} onChange={ onChange } onKeyDown={ onKeyDown }/>
 };
 

@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import apiController from '../controllers/api-controller';
 import { useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
 
 import RepositoryDetailsComponent from './repository-details';
-import { RepositoryObject, ErrorResponse, ReadmeObject } from '../model/interfaces';
+import { RepositoryObject, ErrorResponse } from '../model/interfaces';
 
 
 const RepositoryComponent: React.FC = () => {

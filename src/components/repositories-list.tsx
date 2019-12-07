@@ -8,7 +8,7 @@ import { RepositorySearchItem } from '../model/interfaces';
 
 import RepositorySearch from '../components/repository-search'
 
-const App: React.FC = () => {
+const RepositoriesList: React.FC = () => {
     const [repositories, setRepositoties] = useState<Array<RepositorySearchItem>>([]);
 
     const onItemsReceived = useCallback((repos: Array<RepositorySearchItem>) => {
@@ -43,4 +43,4 @@ const App: React.FC = () => {
     );
 };
 
-export default App;
+export default RepositoriesList;

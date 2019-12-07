@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import {Provider} from "react-redux";
-import App from './app';
+import RepositoriesList from './repositories-list';
 import Repository from './repository';
 import MainView from './main-view';
 
@@ -14,7 +14,7 @@ const Root: React.FC<Props> = ({ store }) => (
         <Router>
             <MainView>
                 <Switch>
-                    <Route exact path="/" component={ App }/>
+                    <Route exact path="/" component={ RepositoriesList }/>
                     <Route path="/repo/:owner/:repo" component={ Repository }/>
                 </Switch>
             </MainView>
