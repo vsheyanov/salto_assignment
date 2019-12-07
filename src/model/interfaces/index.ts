@@ -23,6 +23,9 @@ export interface RepositoryObject {
     stargazers_count: number;
     watchers_count: number;
     open_issues_count: number;
+    pushed_at: string;
+    created_at: string;
+    updated_at: string;
 }
 
 export interface ReadmeObject {

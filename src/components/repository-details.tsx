@@ -1,24 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import apiController from '../controllers/api-controller';
-import {Link, useParams} from 'react-router-dom';
+import React from 'react';
 
-import {RepositoryObject, ErrorResponse, RepositorySearchItem} from '../model/interfaces';
+import { RepositoryObject } from '../model/interfaces';
 
 interface Props {
     repo: RepositoryObject;
 }
 
-const RepositoryDetailsComponent: React.FC<Props> = ({ repo }) => {
+const toLocalString = (str: string) => new Date(str).toLocaleString(navigator.language);
 
-    /*
-    see stats like
-    - owner details,
-    - short sniped from the README.MD file,
-    repository details:
-     - forks/
-     - issues/
-     - watchers/etc...
-     */
+const RepositoryDetailsComponent: React.FC<Props> = ({ repo }) => {
     return (
         <>
             <h1>{ repo.full_name}</h1>
@@ -39,6 +29,18 @@ const RepositoryDetailsComponent: React.FC<Props> = ({ repo }) => {
                     <tr>
                         <td>Open Issues:</td>
                         <td>{ repo.open_issues_count }</td>
+                    </tr>
+                    <tr>
+                        <td>Created at:</td>
+                        <td>{ toLocalString(repo.created_at) }</td>
+                    </tr>
+                    <tr>
+                        <td>Pushed at:</td>
+                        <td>{ toLocalString(repo.pushed_at) }</td>
+                    </tr>
+                    <tr>
+                        <td>Updated at:</td>
+                        <td>{ toLocalString(repo.updated_at) }</td>
                     </tr>
                 </tbody>
             </table>
