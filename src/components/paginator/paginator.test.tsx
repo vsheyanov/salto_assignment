@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, waitForElement } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import Paginator from './paginator';
