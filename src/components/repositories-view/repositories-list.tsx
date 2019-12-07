@@ -21,7 +21,7 @@ const RepositoriesList: React.FC<Props> = ({ items }) => {
             <tbody>
             {
                 items.map((repo: RepositorySearchItem) => (
-                    <RepositoryLine item={ repo }/>
+                    <RepositoryLine key={ repo.id } item={ repo }/>
                 ))
             }
             </tbody>

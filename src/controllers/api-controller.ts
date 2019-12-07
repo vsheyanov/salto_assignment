@@ -22,10 +22,6 @@ class ApiController {
             .catch(() => '');
     }
 
-    getUser(userName: string) {
-        return this._callApi(`/users/${userName}`);
-    }
-
     _callApi(path: string) : Promise<any> {
         const now = Date.now();
         const url = `https://api.github.com${path}`;
@@ -38,7 +34,7 @@ class ApiController {
                     links.forEach((link: string) => {
                         let [url, rel] = link.split(';');
                         if (!url || !rel) { return; }
-                        const urlMatch = url.match(/&page\=(\d+)/);
+                        const urlMatch = url.match(/&page=(\d+)/);
                         const relMatch = rel.match('"(.*)"');
                         if (!urlMatch || !relMatch) { return; }
                         paginationOptions[relMatch[1]] = parseInt(urlMatch[1], 10);

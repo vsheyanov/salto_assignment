@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import apiController from '../controllers/api-controller';
+import apiController from '../../controllers/api-controller';
 import { useParams } from 'react-router-dom';
 import Markdown from 'react-markdown';
 
 import RepositoryDetailsComponent from './repository-details';
-import { RepositoryObject, ErrorResponse } from '../model/interfaces';
+import { RepositoryObject, ErrorResponse } from '../../model/interfaces';
 
 
 const RepositoryComponent: React.FC = () => {
@@ -35,13 +35,11 @@ const RepositoryComponent: React.FC = () => {
         return <div>{ errorResponse.message }</div>;
     }
 
+    const fullName = `${owner}/${repo}`;
+
     return (
         <>
-            {
-                !repository
-                    ? <div>Getting data about repo</div>
-                    : <RepositoryDetailsComponent repo={ repository as RepositoryObject }/>
-            }
+            <RepositoryDetailsComponent fullName={ fullName } repo={ repository as RepositoryObject }/>
             {
                 <div>
                     <Markdown source={ readme } skipHtml={ false } escapeHtml={ false }/>

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import {Provider} from "react-redux";
 import RepositoriesView from './repositories-view/repositories-view';
-import Repository from './repository';
+import Repository from './repository-details/repository';
 import MainView from './main-view';
 
 interface Props {
