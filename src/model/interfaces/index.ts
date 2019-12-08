@@ -7,15 +7,16 @@ export interface Pagination {
 
 export interface SearchRepoResponse {
     pagination: Pagination;
-    incomplete_results: boolean;
-    items: Array<RepositorySearchItem>;
-    total_count: number;
+    result: {
+        items: Array<RepositorySearchItem>;
+    }
 }
 
 export interface RepositorySearchItem {
     id: number;
     name: string;
     full_name: string;
+    private: boolean;
     owner: {
         id: number;
         login: string;
@@ -23,20 +24,22 @@ export interface RepositorySearchItem {
 }
 
 export interface RepositoryObject {
-    id: number;
-    name: string;
-    full_name: string;
-    forks_count: number;
-    stargazers_count: number;
-    watchers_count: number;
-    open_issues_count: number;
-    pushed_at: string;
-    created_at: string;
-    updated_at: string;
+    result: {
+        id: number;
+        name: string;
+        full_name: string;
+        forks_count: number;
+        stargazers_count: number;
+        watchers_count: number;
+        open_issues_count: number;
+        pushed_at: string;
+        created_at: string;
+        updated_at: string;
+    }
 }
 
 export interface ReadmeObject {
-    download_url: string;
+    result: { download_url: string; };
 }
 
 export interface ErrorResponse {

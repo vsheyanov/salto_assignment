@@ -1,20 +1,17 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import throttle from 'lodash.throttle';
 
 import RepositorySearchComponent from './repository-search-component';
-import apiController from '../../controllers/api-controller';
-
-import { SearchRepoResponse, ErrorResponse } from '../../model/interfaces';
 import { useGetSearchRepo } from '../../model/hooks';
 
 
 interface Props {
-    onItemsReceived: (response: SearchRepoResponse | null) => void;
+
 }
 
-const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
-    const { searchedRepo, page } = useGetSearchRepo();
+const RepositorySearch: React.FC<Props> = () => {
+    const { searchedRepo } = useGetSearchRepo();
 
     const history = useHistory();
 
@@ -30,24 +27,6 @@ const RepositorySearch: React.FC<Props> = ({ onItemsReceived }) => {
         updateLocation(value);
     }, [updateLocation]);
 
-    const searchRepo = useCallback((searchValue: string, page?: number) => {
-        if (searchValue.trim().length < 1) {
-            onItemsReceived(null);
-            return;
-        }
-
-        apiController.searchRepos(searchValue, page)
-            .then((data: SearchRepoResponse | ErrorResponse) => {
-                if ((data as ErrorResponse).message) {
-                    return;
-                }
-                onItemsReceived((data as SearchRepoResponse));
-            })
-    }, [onItemsReceived]);
-
-    useEffect(() => {
-        searchRepo(searchedRepo, page);
-    }, [searchRepo, searchedRepo, page]);
     return (
         <RepositorySearchComponent onChange={ onChange } searchedRepo={ searchedRepo }/>
     )

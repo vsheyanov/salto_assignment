@@ -1,4 +1,10 @@
-import { SearchRepoResponse, RepositoryObject, ErrorResponse, ReadmeObject } from '../model/interfaces';
+import {
+    SearchRepoResponse,
+    RepositoryObject,
+    ErrorResponse,
+    ReadmeObject,
+    RepositorySearchItem, Pagination
+} from '../model/interfaces';
 import { setApiCallStats } from '../model/store/actions/actions';
 
 class ApiController {
@@ -7,25 +13,49 @@ class ApiController {
         return this._callApi(`/search/repositories?per_page=20&page=${page || 1}&q=${encodeURI(repo)}+in:name`);
     }
 
-    getRepository(owner: string, repo: string) : Promise<RepositoryObject | ErrorResponse> {
-        return this._callApi(`/repos/${owner}/${repo}`);
+    getUserRepos(token: string, page?: number) : Promise<SearchRepoResponse | ErrorResponse> {
+        return this._callApi(`/user/repos?per_page=20&page=${page || 1}`, token)
+            .then((response: { result: Array<RepositorySearchItem>, pagination: Pagination } | ErrorResponse) => {
+                if ((response as ErrorResponse).message) {
+                    return (response as ErrorResponse);
+                }
+
+                const { result, pagination } = (response as { result: Array<RepositorySearchItem>, pagination: Pagination });
+                const privateRepos = result.filter(r => r.private);
+
+                return {
+                    result: { items: privateRepos },
+                    pagination,
+                };
+            });
     }
 
-    getRepositoryReadme(owner: string, repo: string) : Promise<string> {
-        return this._callApi(`/repos/${owner}/${repo}/readme`)
+    getRepository(owner: string, repo: string, token: string) : Promise<RepositoryObject | ErrorResponse> {
+        return this._callApi(`/repos/${owner}/${repo}`, token);
+    }
+
+    getRepositoryReadme(owner: string, repo: string, token: string) : Promise<string> {
+        return this._callApi(`/repos/${owner}/${repo}/readme`, token)
             .then((response: ReadmeObject | ErrorResponse) => {
                 if ((response as ErrorResponse).message) {
                     return '';
                 }
-                return fetch((response as ReadmeObject).download_url).then(r => r.text()).catch(() => '');
+                return fetch((response as ReadmeObject).result.download_url).then(r => r.text()).catch(() => '');
             })
             .catch(() => '');
     }
 
-    _callApi(path: string) : Promise<any> {
+    _callApi(path: string, privateToken?: string) : Promise<any> {
         const now = Date.now();
         const url = `https://api.github.com${path}`;
-        return fetch(url)
+
+        const options = privateToken && privateToken.trim() !== '' ? {
+            headers: {
+                'Authorization': `token ${privateToken}`,
+            },
+        } : {};
+
+        return fetch(url, options)
             .then(async (r: any) => {
                 const requestPagination = r.headers.get('Link');
                 const paginationOptions: { [key: string]: number } = {};
@@ -47,7 +77,7 @@ class ApiController {
                 }
 
                 return {
-                    ...result,
+                    result,
                     pagination: paginationOptions,
                 }
             })

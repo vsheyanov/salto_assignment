@@ -1,1 +1,2 @@
 export const SET_API_CALL_STATS = 'SET_API_CALL_STATS';
+export const SET_PRIVATE_TOKEN = 'SET_PRIVATE_TOKEN';

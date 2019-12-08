@@ -10,40 +10,41 @@ interface Props {
 const toLocalString = (str: string) => new Date(str).toLocaleString(navigator.language);
 
 const RepositoryDetailsComponent: React.FC<Props> = ({ fullName, repo }) => {
+    const repository = repo && repo.result;
     return (
         <>
             <h1>{ fullName }</h1>
             {
-                !repo ? 'Getting data about repository' : (
+                !repository ? 'Getting data about repository' : (
                     <table id="repository-details-table">
                         <tbody>
                         <tr>
                             <td>Forks:</td>
-                            <td>{ repo.forks_count }</td>
+                            <td>{ repository.forks_count }</td>
                         </tr>
                         <tr>
                             <td>Stars:</td>
-                            <td>{ repo.stargazers_count }</td>
+                            <td>{ repository.stargazers_count }</td>
                         </tr>
                         <tr>
                             <td>Watchers:</td>
-                            <td>{ repo.watchers_count }</td>
+                            <td>{ repository.watchers_count }</td>
                         </tr>
                         <tr>
                             <td>Open Issues:</td>
-                            <td>{ repo.open_issues_count }</td>
+                            <td>{ repository.open_issues_count }</td>
                         </tr>
                         <tr>
                             <td>Created at:</td>
-                            <td>{ toLocalString(repo.created_at) }</td>
+                            <td>{ toLocalString(repository.created_at) }</td>
                         </tr>
                         <tr>
                             <td>Pushed at:</td>
-                            <td>{ toLocalString(repo.pushed_at) }</td>
+                            <td>{ toLocalString(repository.pushed_at) }</td>
                         </tr>
                         <tr>
                             <td>Updated at:</td>
-                            <td>{ toLocalString(repo.updated_at) }</td>
+                            <td>{ toLocalString(repository.updated_at) }</td>
                         </tr>
                         </tbody>
                     </table>
