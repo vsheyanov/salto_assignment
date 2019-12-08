@@ -1,3 +1,7 @@
 .paginatorRoot {
     margin: 10px;
 }
+
+.paginatorRoot a:nth-child(n + 2) {
+    margin-left: 10px;
+}

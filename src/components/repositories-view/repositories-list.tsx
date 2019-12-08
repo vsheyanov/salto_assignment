@@ -11,7 +11,7 @@ interface Props {
 
 
 const RepositoriesList: React.FC<Props> = ({ items }) => {
-    if (items.length === 0) { return <div>No respositories found</div> }
+    if (items.length === 0) { return <div id="no-repo-found">No respositories found</div> }
 
     return (
         <table className={ styles.repoTable }>

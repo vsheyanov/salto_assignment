@@ -15,7 +15,7 @@ const RepositoryDetailsComponent: React.FC<Props> = ({ fullName, repo }) => {
             <h1>{ fullName }</h1>
             {
                 !repo ? 'Getting data about repository' : (
-                    <table>
+                    <table id="repository-details-table">
                         <tbody>
                         <tr>
                             <td>Forks:</td>
