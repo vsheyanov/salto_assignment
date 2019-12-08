@@ -41,6 +41,11 @@ class ApiController {
                     });
                 }
                 const result = await r.json();
+
+                if (!r.ok) {
+                    return Promise.reject(result);
+                }
+
                 return {
                     ...result,
                     pagination: paginationOptions,
@@ -50,8 +55,8 @@ class ApiController {
                 setApiCallStats(true, Date.now() - now);
                 return response;
             })
-            .catch(error => {
-                setApiCallStats(false, Date.now() - now);
+            .catch((error: any) => {
+                setApiCallStats(false, Date.now() - now, error.message);
                 return error;
             });
     }

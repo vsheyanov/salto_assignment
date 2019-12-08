@@ -10,6 +10,11 @@ const ApiStatsComponent: React.FC = () => {
         <div className={ style.apiStats }>
             <div>Last request successful: {stats.success ? 'yes' : 'no'}</div>
             <div>Round trip in: {stats.time}ms</div>
+            {
+                stats.message === '' ? undefined : (
+                    <div>Error: {stats.message}</div>
+                )
+            }
         </div>
     );
 };

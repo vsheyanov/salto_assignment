@@ -4,6 +4,7 @@ import { SET_API_CALL_STATS } from '../actions/action-types';
 const initialState = {
     success: true,
     time: 0,
+    message: '',
 };
 
 export default function (state = initialState, action: Action) {
@@ -13,6 +14,7 @@ export default function (state = initialState, action: Action) {
                 ...state,
                 success: action.payload.success,
                 time: action.payload.time,
+                message: action.payload.message,
             };
         default:
             return state;
