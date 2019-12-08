@@ -30,11 +30,11 @@ class ApiController {
             });
     }
 
-    getRepository(owner: string, repo: string, token: string) : Promise<RepositoryObject | ErrorResponse> {
+    getRepository(owner: string, repo: string, token: string = '') : Promise<RepositoryObject | ErrorResponse> {
         return this._callApi(`/repos/${owner}/${repo}`, token);
     }
 
-    getRepositoryReadme(owner: string, repo: string, token: string) : Promise<string> {
+    getRepositoryReadme(owner: string, repo: string, token: string = '') : Promise<string> {
         return this._callApi(`/repos/${owner}/${repo}/readme`, token)
             .then((response: ReadmeObject | ErrorResponse) => {
                 if ((response as ErrorResponse).message) {
@@ -45,7 +45,7 @@ class ApiController {
             .catch(() => '');
     }
 
-    _callApi(path: string, privateToken?: string) : Promise<any> {
+    _callApi(path: string, privateToken: string = '') : Promise<any> {
         const now = Date.now();
         const url = `https://api.github.com${path}`;
 

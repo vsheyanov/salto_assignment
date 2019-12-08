@@ -6,7 +6,7 @@ test('should request repositories list', async () => {
     const errorResponse = (repos as ErrorResponse);
     const dataResponse = (repos as SearchRepoResponse);
     expect(errorResponse.message).toEqual(undefined);
-    expect(dataResponse.items.length).not.toEqual(0);
+    expect(dataResponse.result.items.length).not.toEqual(0);
 });
 
 test('should return empty list when entered non existing repo name', async () => {
@@ -14,7 +14,7 @@ test('should return empty list when entered non existing repo name', async () =>
     const errorResponse = (repos as ErrorResponse);
     const dataResponse = (repos as SearchRepoResponse);
     expect(errorResponse.message).toEqual(undefined);
-    expect(dataResponse.items.length).toEqual(0);
+    expect(dataResponse.result.items.length).toEqual(0);
 });
 
 test('should request info about repository', async () => {
@@ -23,7 +23,7 @@ test('should request info about repository', async () => {
     const dataResponse = (repo as RepositoryObject);
     expect(errorResponse.message).toEqual(undefined);
     expect(dataResponse).toBeInstanceOf(Object);
-    expect(dataResponse.full_name).toEqual('facebook/react');
+    expect(dataResponse.result.full_name).toEqual('facebook/react');
 });
 
 test('should return error if repository does not exist', async () => {
@@ -31,7 +31,7 @@ test('should return error if repository does not exist', async () => {
     const errorResponse = (repo as ErrorResponse);
     const dataResponse = (repo as RepositoryObject);
     expect(errorResponse.message).toEqual('Not Found');
-    expect(dataResponse.full_name).toEqual(undefined);
+    expect(dataResponse.result).toEqual(undefined);
 });
 
 test('should request readme from a repository', async () => {

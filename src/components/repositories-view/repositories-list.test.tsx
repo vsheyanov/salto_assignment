@@ -15,6 +15,7 @@ test('empty repositories list', () => {
     id: 12123,
     name: 'super-repo',
     full_name: 'victor/super-repo',
+    private: false,
     owner: {
       id: 23234,
       login: 'victor',
