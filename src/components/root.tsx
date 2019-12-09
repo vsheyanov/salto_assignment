@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import {Provider} from "react-redux";
 import RepositoriesView from './repositories-view/repositories-view';
 import Repository from './repository-details/repository';
@@ -16,6 +16,9 @@ const Root: React.FC<Props> = ({ store }) => (
                 <Switch>
                     <Route exact path="/" component={ RepositoriesView }/>
                     <Route path="/repo/:owner/:repo" component={ Repository }/>
+                    <Route exact path="*">
+                        <Redirect to="/"/>
+                    </Route>
                 </Switch>
             </MainView>
         </Router>
